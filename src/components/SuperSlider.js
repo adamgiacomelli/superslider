@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { createComponent as cc } from 'react-fela'
 import { observer } from 'mobx-react'
 
+import SliderImage from './SliderImage'
+
 const NavigationButton = cc(
   _ => ({
     color: 'white',
@@ -35,18 +37,6 @@ const SliderWrapper = cc(_ => ({
   overflow: 'hidden'
 }))
 
-const Image = cc(({ index, backgroundImage }) => ({
-  position: 'absolute',
-  left: `${index * 350}px`,
-  height: '300px',
-  width: '300px',
-  float: 'left',
-  backgroundSize: 'cover',
-  border: '1px solid gray',
-  borderRadius: '3px',
-  backgroundImage: `url(${backgroundImage})`,
-  transition: 'left ease-in .5s'
-}))
 
 class SuperSlider extends Component {
   constructor (props) {
@@ -67,7 +57,7 @@ class SuperSlider extends Component {
         <SliderWrapper>
           {store.images.map((image, index) => {
             return (
-              <Image
+              <SliderImage
                 key={index}
                 index={index + store.currentImageOffset}
                 backgroundImage={image.urls.regular}
