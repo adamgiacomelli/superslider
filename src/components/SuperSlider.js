@@ -23,41 +23,34 @@ const NavigationButton = cc(
   ['onClick']
 )
 
-const ContentWrapper = cc(
-  _ => ({
-    textAlign: 'center',
-    
-  })
-)
+const ContentWrapper = cc(_ => ({
+  textAlign: 'center'
+}))
 
-const SliderWrapper = cc(
-  _ => ({
-    position: 'absolute',
-    padding: '50px 0',
-    height: '300px',
-    width: '100%',
-    overflow: 'hidden'
-  })
-)
+const SliderWrapper = cc(_ => ({
+  position: 'absolute',
+  padding: '50px 0',
+  height: '300px',
+  width: '100%',
+  overflow: 'hidden'
+}))
 
-const Image = cc(
-  ({index, backgroundImage}) => ({
-    position: 'absolute',
-    left: `${index*350}px`,
-    height: '300px',
-    width: '300px',
-    float: 'left',
-    backgroundSize: 'cover',
-    border: '1px solid gray',
-    borderRadius: '3px',
-    backgroundImage: `url(${backgroundImage})`,
-    transition: 'left ease-in .5s'
-  })
-)
+const Image = cc(({ index, backgroundImage }) => ({
+  position: 'absolute',
+  left: `${index * 350}px`,
+  height: '300px',
+  width: '300px',
+  float: 'left',
+  backgroundSize: 'cover',
+  border: '1px solid gray',
+  borderRadius: '3px',
+  backgroundImage: `url(${backgroundImage})`,
+  transition: 'left ease-in .5s'
+}))
 
 class SuperSlider extends Component {
-  constructor(props) {
-    super(props);
+  constructor (props) {
+    super(props)
     const { store } = this.props
     store.loadPhotos()
   }
@@ -72,11 +65,15 @@ class SuperSlider extends Component {
           Previous{' '}
         </NavigationButton>
         <SliderWrapper>
-        {
-          store.images.map((image, index) => {
-            return (<Image key={index} index={index + store.currentImageOffset} backgroundImage={image.urls.regular}/>)
-          })
-        }
+          {store.images.map((image, index) => {
+            return (
+              <Image
+                key={index}
+                index={index + store.currentImageOffset}
+                backgroundImage={image.urls.regular}
+              />
+            )
+          })}
         </SliderWrapper>
         <NavigationButton onClick={() => store.decrementIndex()}>
           {' '}
