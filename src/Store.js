@@ -5,22 +5,28 @@ class Store {
   constructor () {
     extendObservable(this, {
       images: [],
-      currentImageIndex: 0
+      nextPageIndex: 0,
+      currentImageOffset: 0,
+      photosPerPage: 10
     })
   }
   
   async loadPhotos () {
-    const photos = await getPhotos()
+    const photos = await getPhotos(this.nextPageIndex + 1)
     console.log(photos)
+    this.images.push(...photos)
+    this.nextPageIndex++
   }
 
-  next () {
-    console.log(this)
-    this.currentImageIndex++
+  incrementIndex () {    
+    this.currentImageOffset++
   }
 
-  previous () {
-    this.currentImageIndex--
+  decrementIndex () {    
+    if(this.nextPageIndex*this.photosPerPage + this.currentImageOffset < this.photosPerPage) {
+      this.loadPhotos();
+    }
+    this.currentImageOffset--
   }
 }
 

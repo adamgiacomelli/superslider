@@ -23,6 +23,32 @@ const NavigationButton = cc(
   ['onClick']
 )
 
+const ContentWrapper = cc(
+  _ => ({
+    textAlign: 'center',    
+  })
+)
+
+const SliderWrapper = cc(
+  _ => ({
+    padding: '50px 0',
+    height: '200px',    
+  })
+)
+
+const Image = cc(
+  ({index}) => ({
+    position: 'absolute',
+    left: `${index*250}px`,
+    height: '200px',
+    width: '200px',
+    float: 'left',
+    transition: 'left .3s'
+  }),
+  'img',
+  ['src']
+)
+
 class SuperSlider extends Component {
   constructor(props) {
     super(props);
@@ -34,17 +60,24 @@ class SuperSlider extends Component {
     const { store } = this.props
 
     return (
-      <div>
-        <NavigationButton onClick={() => store.next()}>
+      <ContentWrapper>
+        <NavigationButton onClick={() => store.incrementIndex()}>
           {' '}
           Previous{' '}
         </NavigationButton>
-        {store.currentImageIndex}
-        <NavigationButton onClick={() => store.previous()}>
+        <SliderWrapper>
+        {
+          store.images.map((image, index) => {
+            return (<Image key={index} index={index + store.currentImageOffset} src={image.urls.regular}/>)
+          })
+        }
+        </SliderWrapper>
+        {store.nextPageIndex}
+        <NavigationButton onClick={() => store.decrementIndex()}>
           {' '}
           Next{' '}
         </NavigationButton>
-      </div>
+      </ContentWrapper>
     )
   }
 }
