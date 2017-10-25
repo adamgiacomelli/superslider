@@ -10,7 +10,7 @@ class App extends Component {
         <header>
           <h1>SuperSlider</h1>
         </header>
-        <SuperSlider/>
+        <SuperSlider store={this.props.store}/>
         <DevTools />
       </div>
     );
