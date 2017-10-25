@@ -25,28 +25,34 @@ const NavigationButton = cc(
 
 const ContentWrapper = cc(
   _ => ({
-    textAlign: 'center',    
+    textAlign: 'center',
+    
   })
 )
 
 const SliderWrapper = cc(
   _ => ({
+    position: 'absolute',
     padding: '50px 0',
-    height: '200px',    
+    height: '300px',
+    width: '100%',
+    overflow: 'hidden'
   })
 )
 
 const Image = cc(
-  ({index}) => ({
+  ({index, backgroundImage}) => ({
     position: 'absolute',
-    left: `${index*250}px`,
-    height: '200px',
-    width: '200px',
+    left: `${index*350}px`,
+    height: '300px',
+    width: '300px',
     float: 'left',
-    transition: 'left .3s'
-  }),
-  'img',
-  ['src']
+    backgroundSize: 'cover',
+    border: '1px solid gray',
+    borderRadius: '3px',
+    backgroundImage: `url(${backgroundImage})`,
+    transition: 'left ease-in .5s'
+  })
 )
 
 class SuperSlider extends Component {
@@ -68,11 +74,10 @@ class SuperSlider extends Component {
         <SliderWrapper>
         {
           store.images.map((image, index) => {
-            return (<Image key={index} index={index + store.currentImageOffset} src={image.urls.regular}/>)
+            return (<Image key={index} index={index + store.currentImageOffset} backgroundImage={image.urls.regular}/>)
           })
         }
         </SliderWrapper>
-        {store.nextPageIndex}
         <NavigationButton onClick={() => store.decrementIndex()}>
           {' '}
           Next{' '}
